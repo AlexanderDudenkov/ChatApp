@@ -16,8 +16,8 @@ import com.noosphereglobal.chatapp.models.Chat
 import com.noosphereglobal.chatapp.view.base.ABaseFragment
 import com.noosphereglobal.chatapp.view.base.BaseRecyclerAdapter
 import com.noosphereglobal.chatapp.view.base.BaseViewHolder
-import com.noosphereglobal.chatapp.view_models.ABaseViewModel
-import com.noosphereglobal.chatapp.view_models.AMainFragmentViewModel
+import com.noosphereglobal.chatapp.view_models.base.ABaseViewModel
+import com.noosphereglobal.chatapp.view_models.base.AMainFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
 import javax.inject.Inject
 

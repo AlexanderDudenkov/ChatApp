@@ -1,4 +1,4 @@
-package com.noosphereglobal.chatapp.view_models
+package com.noosphereglobal.chatapp.view_models.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

@@ -3,12 +3,22 @@ package com.noosphereglobal.chatapp.view_models
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.noosphereglobal.chatapp.models.Chat
+import com.noosphereglobal.chatapp.models.Message
 import com.noosphereglobal.chatapp.util.d
+import com.noosphereglobal.chatapp.view_models.base.AMainFragmentViewModel
+import com.noosphereglobal.chatapp.view_models.base.EFragments
 import javax.inject.Inject
 
 class MainFragmentViewModel @Inject constructor() : AMainFragmentViewModel() {
 
-    override val list: LiveData<List<Chat>> = MutableLiveData(mutableListOf(Chat("", listOf())))
+    override val list: LiveData<List<Chat>> =
+            MutableLiveData(
+                    mutableListOf(
+                            Chat("1", listOf(Message("name1", "text1"))),
+                            Chat("2", listOf(Message("name2", "text2")))
+                    )
+            )
+
     override val startChatFr: LiveData<Int?> = MutableLiveData(null)
 
     override fun onViewCreated() {
