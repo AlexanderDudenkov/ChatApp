@@ -2,7 +2,7 @@ package com.noosphereglobal.chatapp.di.components
 
 import com.noosphereglobal.chatapp.di.modules.MainFragmentModule
 import com.noosphereglobal.chatapp.di.scopes.FragmentScope
-import com.noosphereglobal.chatapp.view.MainFragment
+import com.noosphereglobal.chatapp.presentation.view.MainFragment
 import dagger.Component
 
 @FragmentScope

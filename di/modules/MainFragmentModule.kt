@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.noosphereglobal.chatapp.di.scopes.FragmentScope
-import com.noosphereglobal.chatapp.models.Chat
-import com.noosphereglobal.chatapp.view.MainActivity
-import com.noosphereglobal.chatapp.view.adapters.MainAdapter
-import com.noosphereglobal.chatapp.view.base.BaseRecyclerAdapter
-import com.noosphereglobal.chatapp.view.base.BaseViewHolder
+import com.noosphereglobal.chatapp.data.Chat
+import com.noosphereglobal.chatapp.presentation.view.MainActivity
+import com.noosphereglobal.chatapp.presentation.view.adapters.MainAdapter
+import com.noosphereglobal.chatapp.presentation.view.base.BaseRecyclerAdapter
+import com.noosphereglobal.chatapp.presentation.view.base.BaseViewHolder
 import dagger.Module
 import dagger.Provides
 

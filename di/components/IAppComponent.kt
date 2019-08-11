@@ -1,10 +1,11 @@
 package com.noosphereglobal.chatapp.di.components
 
+import android.app.Application
 import android.content.Context
 import com.noosphereglobal.chatapp.di.modules.AppModule
 import com.noosphereglobal.chatapp.di.scopes.ApplicationScope
-import com.noosphereglobal.chatapp.view_models.MainFragmentViewModel
-import com.noosphereglobal.chatapp.view_models.base.ViewModelFactory
+import com.noosphereglobal.chatapp.presentation.view_models.MainFragmentViewModel
+import com.noosphereglobal.chatapp.presentation.view_models.base.ViewModelFactory
 import dagger.BindsInstance
 import dagger.Component
 
