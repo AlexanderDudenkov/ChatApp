@@ -27,10 +27,10 @@ open class MainFragment : ABaseFragment() {
     lateinit var lm: RecyclerView.LayoutManager
 
     @Inject
-    lateinit var adapter: BaseRecyclerAdapter<BaseViewHolder<Chat>>
+    lateinit var adapter: BaseRecyclerAdapter<BaseViewHolder<Any>>
 
     protected open var component: Any? = null
-    protected open val vm: ABaseViewModel by lazy { (activity as MainActivity).mainViewVM }
+    protected open val vm: ABaseViewModel by lazy { (activity as MainActivity).mainVM }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)

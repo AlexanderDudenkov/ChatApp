@@ -10,11 +10,17 @@ import com.noosphereglobal.chatapp.R
 import com.noosphereglobal.chatapp.di.injector
 import com.noosphereglobal.chatapp.presentation.view_models.base.AMainFragmentViewModel
 import com.noosphereglobal.chatapp.presentation.view_models.MainFragmentViewModel
+import com.noosphereglobal.chatapp.presentation.view_models.ViewChatFragmentViewModel
+import com.noosphereglobal.chatapp.presentation.view_models.base.AViewChatFragmentViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    val mainViewVM: AMainFragmentViewModel by lazy {
+    val mainVM: AMainFragmentViewModel by lazy {
         ViewModelProviders.of(this, injector.mainViewModelFactory()).get(MainFragmentViewModel::class.java)
+    }
+
+    val viewChatVM: AViewChatFragmentViewModel by lazy {
+        ViewModelProviders.of(this, injector.viewChatViewModelFactory()).get(ViewChatFragmentViewModel::class.java)
     }
 
     val navController: NavController by lazy { findNavController(this, R.id.nav_host_fragment) }

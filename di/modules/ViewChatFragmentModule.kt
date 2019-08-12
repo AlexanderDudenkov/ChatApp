@@ -5,14 +5,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.noosphereglobal.chatapp.di.scopes.FragmentScope
 import com.noosphereglobal.chatapp.presentation.view.MainActivity
-import com.noosphereglobal.chatapp.presentation.view.adapters.MainAdapter
+import com.noosphereglobal.chatapp.presentation.view.adapters.ViewChatAdapter
 import com.noosphereglobal.chatapp.presentation.view.base.BaseRecyclerAdapter
 import com.noosphereglobal.chatapp.presentation.view.base.BaseViewHolder
 import dagger.Module
 import dagger.Provides
 
 @Module
-class MainFragmentModule(private val activity: MainActivity) {
+class ViewChatFragmentModule(private val activity: MainActivity) {
 
     @Provides
     @FragmentScope
@@ -24,5 +24,5 @@ class MainFragmentModule(private val activity: MainActivity) {
 
     @Provides
     @FragmentScope
-    fun provideAdapter(): BaseRecyclerAdapter<BaseViewHolder<Any>> = MainAdapter()
+    fun provideAdapter(): BaseRecyclerAdapter<BaseViewHolder<Any>> = ViewChatAdapter()
 }
