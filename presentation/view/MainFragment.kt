@@ -18,6 +18,7 @@ import com.noosphereglobal.chatapp.presentation.view.base.BaseRecyclerAdapter
 import com.noosphereglobal.chatapp.presentation.view.base.BaseViewHolder
 import com.noosphereglobal.chatapp.presentation.view_models.base.ABaseViewModel
 import com.noosphereglobal.chatapp.presentation.view_models.base.AMainFragmentViewModel
+import com.noosphereglobal.chatapp.util.hideKeyBoard
 import kotlinx.android.synthetic.main.fragment_main.*
 import javax.inject.Inject
 
@@ -84,7 +85,10 @@ open class MainFragment : ABaseFragment() {
         (vm as AMainFragmentViewModel).run {
             list.observe(this@MainFragment, Observer { update(it) })
             startChatFr.observe(this@MainFragment, Observer {
-                if (it != null) startMainActivityFragment(it)
+                if (it != null) {
+                    activity.hideKeyBoard()
+                    startMainActivityFragment(it)
+                }
             })
         }
     }

@@ -23,13 +23,13 @@ import javax.inject.Inject
 open class ViewChatFragment : ABaseFragment() {
 
     @Inject
-    lateinit var lm: RecyclerView.LayoutManager
+    open lateinit var lm: RecyclerView.LayoutManager
 
     @Inject
-    lateinit var adapter: BaseRecyclerAdapter<BaseViewHolder<Any>>
+    open lateinit var adapter: BaseRecyclerAdapter<BaseViewHolder<Any>>
 
     protected open var component: Any? = null
-    protected open val viewChatVM: ABaseViewModel by lazy { (activity as MainActivity).viewChatVM }
+    protected open val vm: ABaseViewModel by lazy { (activity as MainActivity).viewChatVM }
     protected open val mainVM: ABaseViewModel by lazy { (activity as MainActivity).mainVM }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -37,8 +37,9 @@ open class ViewChatFragment : ABaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewChatVM.onViewCreated()
+        vm.onViewCreated()
         initDI()
+        initRv()
         init()
     }
 
@@ -55,15 +56,17 @@ open class ViewChatFragment : ABaseFragment() {
                 .apply { inject(this@ViewChatFragment) }
     }
 
-    protected open fun init() {
+    protected open fun initRv(){
         rv_fragment_chat_view?.also {
             it.adapter = this.adapter
             it.layoutManager = lm
         }
+    }
 
-        (viewChatVM as AViewChatFragmentViewModel).list.observe(this, Observer { update(it) })
+    protected open fun init() {
+        (vm as AViewChatFragmentViewModel).list.observe(this, Observer { update(it) })
         (mainVM as AMainFragmentViewModel).selectedChat.observe(this, Observer {
-            (viewChatVM as AViewChatFragmentViewModel).setChatFromMainFragment(it)
+            (vm as AViewChatFragmentViewModel).setChatFromMainFragment(it)
         })
     }
 
