@@ -44,12 +44,12 @@ open class MainFragmentViewModel @Inject constructor(interactor: IUseCases) : AM
     protected open fun openChat(name: String?, url: String?) {
         if (!name.isNullOrEmpty() && !url.isNullOrEmpty()) {
 
-            interactor.openChat(url).observeForever {
-                if (!it.isNullOrEmpty())
+            interactor.openChat(url).observeForever { errorMes ->
+                if (!errorMes.isNullOrEmpty()) {
                     showToast(R.string.failed_to_open_chat)
+                } else
+                    (startChatFr as MutableLiveData).value = EFragments.CHAT.frId
             }
-
-            (startChatFr as MutableLiveData).value = EFragments.CHAT.frId
         } else {
             showToast(R.string.input_name_and_url)
         }

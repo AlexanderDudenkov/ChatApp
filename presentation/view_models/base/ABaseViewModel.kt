@@ -16,4 +16,8 @@ abstract class ABaseViewModel(val interactor: IUseCases) : ViewModel(), IFragmen
                 ChatApp.getInstance().resources.getText(mesId),
                 Toast.LENGTH_LONG).show()
     }
+
+    fun showToast(mes: String) {
+        Toast.makeText(ChatApp.getInstance(), mes, Toast.LENGTH_LONG).show()
+    }
 }

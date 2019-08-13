@@ -6,6 +6,7 @@ import com.noosphereglobal.chatapp.data.Chat
 interface IRemoteRepo {
     val service: ISocketService
 
-    fun getChatList(): LiveData<List<Chat>>
-    fun openChat(url: String): LiveData<String>
+    fun openChat(url: String): LiveData<String?>
+    fun sendMessage(mes: String): LiveData<String?>
+    fun getMessage(): LiveData<Responce?>
 }

@@ -7,10 +7,10 @@ import com.noosphereglobal.chatapp.repo.IRepository
 import com.noosphereglobal.chatapp.repo.Repository
 import com.noosphereglobal.chatapp.repo.local.IDb
 import com.noosphereglobal.chatapp.repo.local.ILocalRepo
-import com.noosphereglobal.chatapp.repo.local.LocalRepo
+import com.noosphereglobal.chatapp.repo.local.RealmDbRepo
 import com.noosphereglobal.chatapp.repo.remote.IRemoteRepo
 import com.noosphereglobal.chatapp.repo.remote.ISocketService
-import com.noosphereglobal.chatapp.repo.remote.RemoteRepo
+import com.noosphereglobal.chatapp.repo.remote.OkhttpRepo
 import dagger.Module
 import dagger.Provides
 
@@ -27,9 +27,9 @@ class AppModule {
 
     @Provides
     @ApplicationScope
-    fun provideILocalRepo(db: IDb): ILocalRepo = LocalRepo(db)
+    fun provideILocalRepo(db: IDb): ILocalRepo = RealmDbRepo(db)
 
     @Provides
     @ApplicationScope
-    fun provideIRemoteRepo(service: ISocketService): IRemoteRepo = RemoteRepo(service)
+    fun provideIRemoteRepo(service: ISocketService): IRemoteRepo = OkhttpRepo(service)
 }
