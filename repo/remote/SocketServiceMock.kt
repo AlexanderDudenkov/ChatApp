@@ -4,18 +4,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.noosphereglobal.chatapp.util.d
 
-class SocketService : ISocketService {
+class SocketServiceMock : ISocketService {
 
     override fun getMessage(): LiveData<String?> {
         return MutableLiveData("Message")
     }
 
-    override fun openChat(url: String): LiveData<String?> {
-        return MutableLiveData(null)
+    override fun openChat(url: String, setErrorListener: (error: String?) -> Unit) {
+        setErrorListener(null)
     }
 
-    override fun sendMessage(json: String): LiveData<String?> {
+    override fun sendMessage(json: String, setErrorListener: (error: String?) -> Unit) {
         d(json)
-        return MutableLiveData(null)
+        setErrorListener(null)
     }
 }

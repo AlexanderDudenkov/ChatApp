@@ -1,12 +1,12 @@
 package com.noosphereglobal.chatapp.repo.remote
 
 import androidx.lifecycle.LiveData
-import com.noosphereglobal.chatapp.data.Chat
+import com.noosphereglobal.chatapp.data.Message
 
 interface IRemoteRepo {
     val service: ISocketService
 
-    fun openChat(url: String): LiveData<String?>
-    fun sendMessage(mes: String): LiveData<String?>
-    fun getMessage(): LiveData<Responce?>
+    fun openChat(url: String, setErrorListener: (error: String?) -> Unit)
+    fun sendMessage(mes: Message,setErrorListener: (error: String?) -> Unit)
+    fun getMessage(): LiveData<Message?>
 }

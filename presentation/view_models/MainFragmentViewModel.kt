@@ -12,16 +12,19 @@ import javax.inject.Inject
 
 open class MainFragmentViewModel @Inject constructor(interactor: IUseCases) : AMainFragmentViewModel(interactor) {
 
-    override val list: LiveData<List<Chat>> = MediatorLiveData()
+    final override val list: LiveData<List<Chat>> = MediatorLiveData()
     override val startChatFr: LiveData<Int?> = MutableLiveData(null)
     override val selectedChat: LiveData<Chat> = MutableLiveData()
 
     protected open var userName: String? = null
     protected open var socketUrl: String? = null
 
+    init {
+        (list as MediatorLiveData).addSource(interactor.getChatList()) { list.postValue(it) }
+    }
+
     override fun onViewCreated() {
         (startChatFr as MutableLiveData).value = null
-        (list as MediatorLiveData).addSource(interactor.getChatList()) { (list as MediatorLiveData).postValue(it) }
     }
 
     override fun clickBtnConnect() {
@@ -44,7 +47,7 @@ open class MainFragmentViewModel @Inject constructor(interactor: IUseCases) : AM
     protected open fun openChat(name: String?, url: String?) {
         if (!name.isNullOrEmpty() && !url.isNullOrEmpty()) {
 
-            interactor.openChat(url).observeForever { errorMes ->
+            interactor.openChat(name, url) { errorMes ->
                 if (!errorMes.isNullOrEmpty()) {
                     showToast(R.string.failed_to_open_chat)
                 } else

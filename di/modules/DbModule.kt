@@ -2,7 +2,7 @@ package com.noosphereglobal.chatapp.di.modules
 
 import com.noosphereglobal.chatapp.di.scopes.ApplicationScope
 import com.noosphereglobal.chatapp.repo.local.IDb
-import com.noosphereglobal.chatapp.repo.local.RealmDb
+import com.noosphereglobal.chatapp.repo.local.RealmDbMock
 import dagger.Module
 import dagger.Provides
 
@@ -11,5 +11,5 @@ class DbModule {
 
     @Provides
     @ApplicationScope
-    fun provideIDb(): IDb = RealmDb()
+    fun provideIDb(): IDb = RealmDbMock()
 }

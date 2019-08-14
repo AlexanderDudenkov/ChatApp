@@ -32,4 +32,6 @@ class AppModule {
     @Provides
     @ApplicationScope
     fun provideIRemoteRepo(service: ISocketService): IRemoteRepo = OkhttpRepo(service)
+
+
 }

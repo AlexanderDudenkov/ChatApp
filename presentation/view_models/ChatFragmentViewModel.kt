@@ -10,23 +10,25 @@ import javax.inject.Inject
 
 open class ChatFragmentViewModel @Inject constructor(interactor: IUseCases) : AChatFragmentViewModel(interactor) {
 
-    override val list: LiveData<List<Message>> = MediatorLiveData()
+    final override val list: LiveData<List<Message>> = MediatorLiveData()
 
     protected open var text: String? = null
 
-    override fun onViewCreated() {
+    init {
         (list as MediatorLiveData).addSource(interactor.getChat(getDate())) {
-            (list as MediatorLiveData).postValue(it.chatList)
+            it?.let { list.postValue(it.messageList) }
         }
     }
 
+    override fun onViewCreated() {}
+
     override fun setMessage(text: String?) {
-         this.text = text
+        this.text = text
     }
 
     override fun ckickBtnSend() {
         text?.let {
-            interactor.sendMessage(text!!).observeForever { errorMes ->
+            interactor.sendMessage(text!!){ errorMes ->
                 if (!errorMes.isNullOrEmpty()) showToast(errorMes)
             }
         }

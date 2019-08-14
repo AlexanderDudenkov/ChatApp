@@ -13,6 +13,6 @@ open class ViewChatFragmentViewModel @Inject constructor(interactor: IUseCases) 
     override val list: LiveData<List<Message>> = MutableLiveData()
 
     override fun setChatFromMainFragment(chat: Chat) {
-        (list as MutableLiveData).value = chat.chatList
+        (list as MutableLiveData).value = chat.messageList
     }
 }
