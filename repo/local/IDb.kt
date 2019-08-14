@@ -7,9 +7,12 @@ import com.noosphereglobal.chatapp.data.Message
 interface IDb {
     fun getChatList(): LiveData<List<Chat>>
     fun getChat(date: String): LiveData<Chat?>
+    fun getChat(date: String, chatListener: (chat: Chat?) -> Unit)
     fun setMessage(userName: String,
                    url: String,
                    chatDate: String,
                    message: Message,
                    setIdListener: ((id: Long) -> Unit)? = null)
+
+    fun setChat(chat: Chat, setIdListener: ((id: Long) -> Unit)? = null)
 }

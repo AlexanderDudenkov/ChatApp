@@ -21,7 +21,17 @@ open class Interactor @Inject constructor(private val repository: IRepository) :
     override fun openChat(userName: String, url: String, setErrorListener: (error: String?) -> Unit) {
         name = userName
         this.url = url
-        repository.remoteRepo.openChat(url, setErrorListener)
+
+        repository.remoteRepo.openChat(url) { error ->
+            if (error.isNullOrEmpty()) {
+                repository.localRepo.getChat(getDate()) {
+                    if ((it == null) || (it.socketUrl != url)) {
+                        repository.localRepo.setChat(Chat(url))
+                    }
+                }
+            }
+            setErrorListener(error)
+        }
     }
 
     override fun getChat(chatDate: String): LiveData<Chat?> {

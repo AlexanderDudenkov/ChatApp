@@ -18,4 +18,8 @@ class SocketServiceMock : ISocketService {
         d(json)
         setErrorListener(null)
     }
+
+    override fun closeChat() {
+
+    }
 }

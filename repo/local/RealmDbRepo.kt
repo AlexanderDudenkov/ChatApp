@@ -11,6 +11,10 @@ class RealmDbRepo @Inject constructor(override val db: IDb) : ILocalRepo {
 
     override fun getChat(date: String): LiveData<Chat?> = db.getChat(date)
 
+    override fun getChat(date: String, chatListener: (chat: Chat?) -> Unit) {
+        db.getChat(date, chatListener)
+    }
+
     override fun setMessage(userName: String,
                             url: String,
                             chatDate: String,
@@ -18,5 +22,9 @@ class RealmDbRepo @Inject constructor(override val db: IDb) : ILocalRepo {
                             setIdListener: ((id: Long) -> Unit)?) {
 
         db.setMessage(userName, url, chatDate, message, setIdListener)
+    }
+
+    override fun setChat(chat: Chat, setIdListener: ((id: Long) -> Unit)?) {
+        db.setChat(chat, setIdListener)
     }
 }

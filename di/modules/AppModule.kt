@@ -1,5 +1,6 @@
 package com.noosphereglobal.chatapp.di.modules
 
+import com.google.gson.Gson
 import com.noosphereglobal.chatapp.di.scopes.ApplicationScope
 import com.noosphereglobal.chatapp.domain.IUseCases
 import com.noosphereglobal.chatapp.domain.Interactor
@@ -14,7 +15,7 @@ import com.noosphereglobal.chatapp.repo.remote.OkhttpRepo
 import dagger.Module
 import dagger.Provides
 
-@Module(includes = [DbModule::class, SocketModule::class])
+@Module(includes = [DbModule::class, SocketModule::class, GsonModule::class])
 class AppModule {
 
     @Provides
@@ -31,7 +32,5 @@ class AppModule {
 
     @Provides
     @ApplicationScope
-    fun provideIRemoteRepo(service: ISocketService): IRemoteRepo = OkhttpRepo(service)
-
-
+    fun provideIRemoteRepo(service: ISocketService, gson: Gson): IRemoteRepo = OkhttpRepo(service, gson)
 }

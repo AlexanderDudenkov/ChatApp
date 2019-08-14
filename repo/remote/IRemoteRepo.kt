@@ -9,4 +9,5 @@ interface IRemoteRepo {
     fun openChat(url: String, setErrorListener: (error: String?) -> Unit)
     fun sendMessage(mes: Message,setErrorListener: (error: String?) -> Unit)
     fun getMessage(): LiveData<Message?>
+    fun closeChat()
 }

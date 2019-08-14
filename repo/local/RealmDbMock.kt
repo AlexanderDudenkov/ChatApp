@@ -11,11 +11,6 @@ class RealmDbMock : IDb {
             MutableLiveData(ArrayList<Chat>().apply {
                 add(Chat("url", ArrayList<Message>().apply { add(Message("name1", "text1")) }))
                 add(Chat("url", ArrayList<Message>().apply { add(Message("name1", "text1")) }))
-                add(Chat("url", ArrayList<Message>().apply {
-                    add(Message("name1", "text1"))
-                    add(Message("name1", "text1"))
-                    add(Message("name1", "text1"))
-                }))
             })
 
     override fun getChatList(): LiveData<List<Chat>> = listChats
@@ -24,8 +19,18 @@ class RealmDbMock : IDb {
         MutableLiveData(listChats.value?.last())
     }
 
+    override fun getChat(date: String, chatListener: (chat: Chat?) -> Unit) {
+        chatListener(listChats.value?.last())
+    }
+
     override fun setMessage(userName: String, url: String, chatDate: String, message: Message, setIdListener: ((id: Long) -> Unit)?) {
-        (listChats as MutableLiveData).value = listChats.value?.apply { (this.last().messageList as ArrayList).add(message) }
+        (listChats as MutableLiveData).postValue(listChats.value?.apply { (this.last().messageList as ArrayList).add(message) })
+
+        setIdListener?.invoke(1L)
+    }
+
+    override fun setChat(chat: Chat, setIdListener: ((id: Long) -> Unit)?) {
+        (listChats as MutableLiveData).postValue(listChats.value?.apply { (this as ArrayList).add(chat) })
 
         setIdListener?.invoke(1L)
     }

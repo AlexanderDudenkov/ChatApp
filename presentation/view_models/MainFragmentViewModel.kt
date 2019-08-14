@@ -8,6 +8,7 @@ import com.noosphereglobal.chatapp.data.Chat
 import com.noosphereglobal.chatapp.domain.IUseCases
 import com.noosphereglobal.chatapp.presentation.view_models.base.AMainFragmentViewModel
 import com.noosphereglobal.chatapp.presentation.view_models.base.EFragments
+import com.noosphereglobal.chatapp.util.d
 import javax.inject.Inject
 
 open class MainFragmentViewModel @Inject constructor(interactor: IUseCases) : AMainFragmentViewModel(interactor) {
@@ -17,7 +18,7 @@ open class MainFragmentViewModel @Inject constructor(interactor: IUseCases) : AM
     override val selectedChat: LiveData<Chat> = MutableLiveData()
 
     protected open var userName: String? = null
-    protected open var socketUrl: String? = null
+    protected open var socketUrl: String? = "ws://echo.websocket.org"
 
     init {
         (list as MediatorLiveData).addSource(interactor.getChatList()) { list.postValue(it) }
@@ -50,8 +51,9 @@ open class MainFragmentViewModel @Inject constructor(interactor: IUseCases) : AM
             interactor.openChat(name, url) { errorMes ->
                 if (!errorMes.isNullOrEmpty()) {
                     showToast(R.string.failed_to_open_chat)
+                    d(errorMes)
                 } else
-                    (startChatFr as MutableLiveData).value = EFragments.CHAT.frId
+                    (startChatFr as MutableLiveData).postValue(EFragments.CHAT.frId)
             }
         } else {
             showToast(R.string.input_name_and_url)
