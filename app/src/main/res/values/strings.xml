@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ChatApp</string>
+    <string name="enter_your_name">enter your name</string>
+    <string name="enter_url">enter url</string>
+    <string name="chatting">Chatting!</string>
+    <string name="input_name_and_url">\"Input name and url!\"</string>
+    <string name="failed_to_open_chat">Failed to open chat!</string>
+    <string name="send">Send</string>
+    <string name="print_message">print message</string>
+    <string name="delivered">Delivered</string>
+    <string name="not_delivered">Not delivered</string>
+    <string name="sending">Sending</string>
+</resources>
