@@ -7,5 +7,5 @@ Okhttp3 for TCP-connection with server: http://www.websocket.org/echo.html.
 # 
 Gson for parsing models/json to and from server.
 #
-This app is built on clean arch, which includes m
+This app is built on clean arch., which includes mvvm arch.
 #
