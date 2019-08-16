@@ -1,6 +1,5 @@
 # ChatApp
-3-d party libraries that i used:
-# 
+3-d party libraries that i used:/n
 Dagger2 for managing dependencies.
 # 
 Okhttp3 for TCP-connection with server: http://www.websocket.org/echo.html.
