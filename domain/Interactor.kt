@@ -1,8 +1,6 @@
 package com.noosphereglobal.chatapp.domain
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import com.noosphereglobal.chatapp.data.Chat
 import com.noosphereglobal.chatapp.data.Message
 import com.noosphereglobal.chatapp.repo.IRepository
@@ -27,6 +25,7 @@ open class Interactor @Inject constructor(private val repository: IRepository) :
                 repository.localRepo.getChat(getDate()) {
                     if ((it == null) || (it.socketUrl != url)) {
                         repository.localRepo.setChat(Chat(url))
+                        updateDb()
                     }
                 }
             }
@@ -35,20 +34,29 @@ open class Interactor @Inject constructor(private val repository: IRepository) :
     }
 
     override fun getChat(chatDate: String): LiveData<Chat?> {
-        return Transformations.switchMap(repository.remoteRepo.getMessage() as MutableLiveData) { message ->
-            if (message != null) {
-                repository.localRepo.setMessage(name, url, chatDate, message) {
-                    repository.localRepo.getChat(chatDate)
-                }
-                repository.localRepo.getChat(chatDate)
-            } else MutableLiveData<Chat?>(null)
-        }
+        return repository.localRepo.getChat(chatDate)
+    }
+
+    override fun getChat(date: String, chatListener: (chat: Chat?) -> Unit) {
+        repository.localRepo.getChat(date, chatListener)
     }
 
     override fun sendMessage(mes: String, setErrorListener: (error: String?) -> Unit) {
         val message = Message(name, mes)
         repository.localRepo.setMessage(name, url, getDate(), message) {
             repository.remoteRepo.sendMessage(message, setErrorListener)
+        }
+    }
+
+    override fun closeConnection() {
+     /*todo closing db and net*/
+    }
+
+    protected open fun updateDb() {
+        repository.remoteRepo.getMessage().observeForever { message ->
+            if (message != null) {
+                repository.localRepo.setMessage(name, url, getDate(), message)
+            }
         }
     }
 }

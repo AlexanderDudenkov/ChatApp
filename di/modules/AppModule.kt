@@ -6,7 +6,7 @@ import com.noosphereglobal.chatapp.domain.IUseCases
 import com.noosphereglobal.chatapp.domain.Interactor
 import com.noosphereglobal.chatapp.repo.IRepository
 import com.noosphereglobal.chatapp.repo.Repository
-import com.noosphereglobal.chatapp.repo.local.IDb
+import com.noosphereglobal.chatapp.repo.local.IRealmDb
 import com.noosphereglobal.chatapp.repo.local.ILocalRepo
 import com.noosphereglobal.chatapp.repo.local.RealmDbRepo
 import com.noosphereglobal.chatapp.repo.remote.IRemoteRepo
@@ -28,7 +28,7 @@ class AppModule {
 
     @Provides
     @ApplicationScope
-    fun provideILocalRepo(db: IDb): ILocalRepo = RealmDbRepo(db)
+    fun provideILocalRepo(db: IRealmDb): ILocalRepo = RealmDbRepo(db)
 
     @Provides
     @ApplicationScope

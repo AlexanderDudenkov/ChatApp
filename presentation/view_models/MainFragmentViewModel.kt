@@ -21,11 +21,17 @@ open class MainFragmentViewModel @Inject constructor(interactor: IUseCases) : AM
     protected open var socketUrl: String? = "ws://echo.websocket.org"
 
     init {
-        (list as MediatorLiveData).addSource(interactor.getChatList()) { list.postValue(it) }
+        (list as MediatorLiveData).addSource(interactor.getChatList()) {
+            list.postValue(it)
+        }
     }
 
     override fun onViewCreated() {
         (startChatFr as MutableLiveData).value = null
+    }
+
+    override fun onDestroy() {
+        interactor.closeConnection()
     }
 
     override fun clickBtnConnect() {
@@ -41,8 +47,12 @@ open class MainFragmentViewModel @Inject constructor(interactor: IUseCases) : AM
     }
 
     override fun setClickItemPos(pos: Int) {
-        (selectedChat as MutableLiveData).value = list.value?.get(pos)
-        (startChatFr as MutableLiveData).value = EFragments.VIEW_CHAT.frId
+        list.value?.get(pos)?.date?.let {
+            interactor.getChat(it) { chat ->
+                (selectedChat as MutableLiveData).value = chat
+                (startChatFr as MutableLiveData).value = EFragments.VIEW_CHAT.frId
+            }
+        }
     }
 
     protected open fun openChat(name: String?, url: String?) {

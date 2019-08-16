@@ -2,6 +2,7 @@ package com.noosphereglobal.chatapp.repo.remote
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.noosphereglobal.chatapp.util.SingleLiveData
 import com.noosphereglobal.chatapp.util.d
 import okhttp3.*
 import javax.inject.Inject
@@ -10,8 +11,8 @@ class SocketService @Inject constructor(private val client: OkHttpClient) : ISoc
 
     private var ws: WebSocket? = null
     private var request: Request? = null
-    private var openChatErrorListener: ((error: String?) -> Unit)? = null
-    private var sendMessageErrorListener: ((error: String?) -> Unit)? = null
+    private var openChatErrorListener: SingleLiveData<String?>? = null
+    private var sendMessageErrorListener: SingleLiveData<String?>? = null
     private val message: LiveData<String?> = MutableLiveData()
     private var isOpen = false
     private var currentUrl = ""
@@ -21,7 +22,7 @@ class SocketService @Inject constructor(private val client: OkHttpClient) : ISoc
         override fun onOpen(webSocket: WebSocket, response: Response) {
             d("onOpen")
             isOpen = true
-            openChatErrorListener?.invoke(null)
+            openChatErrorListener?.postValue(null)
         }
 
         override fun onMessage(webSocket: WebSocket, text: String) {
@@ -31,8 +32,8 @@ class SocketService @Inject constructor(private val client: OkHttpClient) : ISoc
 
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
             d("onFailure")
-            openChatErrorListener?.invoke(t.message)
-            sendMessageErrorListener?.invoke(t.message)
+            openChatErrorListener?.postValue(t.message)
+            sendMessageErrorListener?.postValue(t.message)
         }
 
         override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
@@ -53,22 +54,26 @@ class SocketService @Inject constructor(private val client: OkHttpClient) : ISoc
 
     override fun openChat(url: String, setErrorListener: (error: String?) -> Unit) {
         this.url = url
+        openChatErrorListener = SingleLiveData()
 
         if ((isOpen && currentUrl != url) || (!isOpen && currentUrl != url) || (!isOpen && currentUrl == url)) {
             currentUrl = url
 
-            openChatErrorListener = setErrorListener
+            openChatErrorListener?.observeForever {
+                setErrorListener(it)
+            }
             request = Request.Builder().url(url).build()
             ws = client.newWebSocket(request!!, socketListener)
             client.dispatcher.executorService.shutdown()
         } else {
-            openChatErrorListener?.invoke(null)
+            setErrorListener(null)
         }
     }
 
     override fun sendMessage(json: String, setErrorListener: (error: String?) -> Unit) {
+        sendMessageErrorListener = SingleLiveData()
         ws?.send(json)
-        sendMessageErrorListener = setErrorListener
+        sendMessageErrorListener?.observeForever { setErrorListener(it) }
     }
 
     override fun closeChat() {

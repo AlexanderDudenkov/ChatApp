@@ -26,7 +26,6 @@ open class MainViewHolder(itemView: View, clickedListener: ((Int) -> Unit)? = nu
 
     override fun bindData(data: Any?) {
         itemView.run {
-            tv_number_of_messages_chat1_item?.text = (data as? Chat)?.messages.toString()
             tv_date_chat1_item?.text = (data as? Chat)?.date
         }
     }

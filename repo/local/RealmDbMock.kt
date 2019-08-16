@@ -1,3 +1,4 @@
+/*
 package com.noosphereglobal.chatapp.repo.local
 
 import androidx.lifecycle.LiveData
@@ -6,7 +7,7 @@ import androidx.lifecycle.Transformations
 import com.noosphereglobal.chatapp.data.Chat
 import com.noosphereglobal.chatapp.data.Message
 
-class RealmDbMock : IDb {
+class RealmDbMock : IRealmDb {
     private val listChats: LiveData<List<Chat>> =
             MutableLiveData(ArrayList<Chat>().apply {
                 add(Chat("url", ArrayList<Message>().apply { add(Message("name1", "text1")) }))
@@ -34,4 +35,4 @@ class RealmDbMock : IDb {
 
         setIdListener?.invoke(1L)
     }
-}
+}*/

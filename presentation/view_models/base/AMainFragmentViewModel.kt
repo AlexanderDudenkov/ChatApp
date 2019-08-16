@@ -13,4 +13,5 @@ abstract class AMainFragmentViewModel(interactor: IUseCases) : ABaseViewModel(in
     abstract fun setName(name: String?)
     abstract fun setUrl(url: String?)
     abstract fun setClickItemPos(pos: Int)
+    override fun onDestroy() {}
 }

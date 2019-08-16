@@ -10,6 +10,7 @@ import com.noosphereglobal.chatapp.presentation.view.base.IFragmentLifecycleCall
 abstract class ABaseViewModel(val interactor: IUseCases) : ViewModel(), IFragmentLifecycleCallbacks {
     override fun onStart() {}
     override fun onViewCreated() {}
+    override fun onDestroy() {}
 
     fun showToast(@StringRes mesId: Int) {
         Toast.makeText(ChatApp.getInstance(),

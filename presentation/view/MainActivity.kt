@@ -37,6 +37,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
+    override fun onDestroy() {
+        mainVM.onDestroy()
+        super.onDestroy()
+    }
+
     override fun onSupportNavigateUp() = navController.navigateUp()
 
     override fun onBackPressed() {
